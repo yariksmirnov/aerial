@@ -1,0 +1,6 @@
+framework module Pods_Aerial_Halfpipe {
+  umbrella header "Pods-Aerial-Halfpipe-umbrella.h"
+
+  export *
+  module * { export * }
+}
