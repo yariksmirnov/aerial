@@ -1,15 +1,15 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3A2CE4614952DBCE495E7062269C9D6A9BE3A031",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "7CDF07C25AE93079FFE66618B5E98CD3435DFB10",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "3A2CE4614952DBCE495E7062269C9D6A9BE3A031" : 9223372036854775807,
+    "7CDF07C25AE93079FFE66618B5E98CD3435DFB10" : 9223372036854775807,
     "EFD412254337C75C476C16E9CB48CF9F5FF23456" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "4BE4EEA1-2F6D-40FA-ACA7-838B3226F295",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "3A2CE4614952DBCE495E7062269C9D6A9BE3A031" : "aerial\/",
+    "7CDF07C25AE93079FFE66618B5E98CD3435DFB10" : "aerial\/",
     "EFD412254337C75C476C16E9CB48CF9F5FF23456" : "wrike-ios\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Aerial",
@@ -19,7 +19,7 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/yariksmirnov\/remote-debugger.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3A2CE4614952DBCE495E7062269C9D6A9BE3A031"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7CDF07C25AE93079FFE66618B5E98CD3435DFB10"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git.wrke.in:ios\/wrike-ios.git",

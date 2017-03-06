@@ -9,7 +9,13 @@
 /* Begin PBXBuildFile section */
 		335B63AE4E135BB460098D4E /* Pods_Aerial_Halfpipe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C9B218C63F9150AE523B3B /* Pods_Aerial_Halfpipe.framework */; };
 		3805B8F0090D567818C29FDD /* Pods_Aerial_AerialiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3646A06AE6BFABDCB90A8D9 /* Pods_Aerial_AerialiOS.framework */; };
-		5E76AA955F60957246A586F5 /* Pods_Aerial_AerialMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8E2EB67F60860D87AD316D /* Pods_Aerial_AerialMac.framework */; };
+		8D14DB651E6E25CD0076D8DB /* CorkDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D14DB631E6E25CD0076D8DB /* CorkDestination.swift */; };
+		8D14DB721E6E25E40076D8DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D14DB681E6E25E40076D8DB /* AppDelegate.swift */; };
+		8D14DB731E6E25E40076D8DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D14DB691E6E25E40076D8DB /* Assets.xcassets */; };
+		8D14DB741E6E25E40076D8DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D14DB6A1E6E25E40076D8DB /* LaunchScreen.storyboard */; };
+		8D14DB751E6E25E40076D8DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D14DB6C1E6E25E40076D8DB /* Main.storyboard */; };
+		8D14DB771E6E25E40076D8DB /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D14DB6F1E6E25E40076D8DB /* Info.plist */; };
+		8D14DB781E6E25E40076D8DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D14DB711E6E25E40076D8DB /* ViewController.swift */; };
 		8D30D9571E015007009C1049 /* Dictionary+KVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30D9561E015007009C1049 /* Dictionary+KVO.swift */; };
 		8D30D9581E015673009C1049 /* Dictionary+KVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30D9561E015007009C1049 /* Dictionary+KVO.swift */; };
 		8D30D95A1E0159E7009C1049 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D30D9591E0159E7009C1049 /* Container.swift */; };
@@ -18,7 +24,6 @@
 		8D4447261E11146A00495865 /* NSObject+Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4447251E11146A00495865 /* NSObject+Notifications.m */; };
 		8D4447271E11146A00495865 /* NSObject+Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4447251E11146A00495865 /* NSObject+Notifications.m */; };
 		8DA860E91E526A0B00B03BA0 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA860E81E526A0B00B03BA0 /* Protocols.swift */; };
-		8DA860EB1E526B7100B03BA0 /* CorkDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA860EA1E526B7100B03BA0 /* CorkDestination.swift */; };
 		8DB63B251E00539700E9FAE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B0F1E00537B00E9FAE3 /* AppDelegate.swift */; };
 		8DB63B271E00539700E9FAE3 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B141E00537B00E9FAE3 /* DeviceManager.swift */; };
 		8DB63B281E00539700E9FAE3 /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B151E00537B00E9FAE3 /* DeviceViewController.swift */; };
@@ -33,13 +38,7 @@
 		8DB63B431E0053F500E9FAE3 /* PeerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B351E0053F500E9FAE3 /* PeerSession.swift */; };
 		8DB63B451E0053F500E9FAE3 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B361E0053F500E9FAE3 /* Socket.swift */; };
 		8DB63B471E0053F500E9FAE3 /* SocketEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B371E0053F500E9FAE3 /* SocketEvent.swift */; };
-		8DB63B5E1E00547D00E9FAE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63AC71E0051F200E9FAE3 /* AppDelegate.swift */; };
-		8DB63B5F1E00547D00E9FAE3 /* DDAerialLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63ACE1E0051F200E9FAE3 /* DDAerialLogger.swift */; };
 		8DB63B601E00547D00E9FAE3 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63ACF1E0051F200E9FAE3 /* Debugger.swift */; };
-		8DB63B611E00547D00E9FAE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63AD31E0051F200E9FAE3 /* ViewController.swift */; };
-		8DB63B621E00547D00E9FAE3 /* CocoaLumberjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63ACD1E0051F200E9FAE3 /* CocoaLumberjack.swift */; };
-		8DB63B631E00548200E9FAE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DB63AC91E0051F200E9FAE3 /* LaunchScreen.storyboard */; };
-		8DB63B641E00548200E9FAE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DB63ACB1E0051F200E9FAE3 /* Main.storyboard */; };
 		8DB63B661E00549600E9FAE3 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B301E0053F500E9FAE3 /* Device.swift */; };
 		8DB63B671E00549600E9FAE3 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B311E0053F500E9FAE3 /* File.swift */; };
 		8DB63B681E00549600E9FAE3 /* LogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B321E0053F500E9FAE3 /* LogMessage.swift */; };
@@ -53,6 +52,16 @@
 		250672AD925CB4755AB761CA /* Pods-Aerial-Halfpipe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aerial-Halfpipe.release.xcconfig"; path = "Pods/Target Support Files/Pods-Aerial-Halfpipe/Pods-Aerial-Halfpipe.release.xcconfig"; sourceTree = "<group>"; };
 		659595212C59EA73D071B641 /* Pods-Aerial-AerialMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aerial-AerialMac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Aerial-AerialMac/Pods-Aerial-AerialMac.debug.xcconfig"; sourceTree = "<group>"; };
 		6B2B8A63D39584BFF8A138A8 /* Pods-Aerial-AerialMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aerial-AerialMac.release.xcconfig"; path = "Pods/Target Support Files/Pods-Aerial-AerialMac/Pods-Aerial-AerialMac.release.xcconfig"; sourceTree = "<group>"; };
+		8D14DB631E6E25CD0076D8DB /* CorkDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorkDestination.swift; sourceTree = "<group>"; };
+		8D14DB641E6E25CD0076D8DB /* DDAerialLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDAerialLogger.swift; sourceTree = "<group>"; };
+		8D14DB681E6E25E40076D8DB /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8D14DB691E6E25E40076D8DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8D14DB6B1E6E25E40076D8DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8D14DB6D1E6E25E40076D8DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8D14DB6E1E6E25E40076D8DB /* CocoaLumberjack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaLumberjack.swift; sourceTree = "<group>"; };
+		8D14DB6F1E6E25E40076D8DB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D14DB701E6E25E40076D8DB /* iOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		8D14DB711E6E25E40076D8DB /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8D30D9561E015007009C1049 /* Dictionary+KVO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+KVO.swift"; sourceTree = "<group>"; };
 		8D30D9591E0159E7009C1049 /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		8D44471A1E0D3ADA00495865 /* LogsPrefController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsPrefController.swift; sourceTree = "<group>"; };
@@ -60,17 +69,7 @@
 		8D4447241E11146A00495865 /* NSObject+Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Notifications.h"; sourceTree = "<group>"; };
 		8D4447251E11146A00495865 /* NSObject+Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Notifications.m"; sourceTree = "<group>"; };
 		8DA860E81E526A0B00B03BA0 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
-		8DA860EA1E526B7100B03BA0 /* CorkDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorkDestination.swift; sourceTree = "<group>"; };
-		8DB63AC71E0051F200E9FAE3 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8DB63AC81E0051F200E9FAE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8DB63ACA1E0051F200E9FAE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8DB63ACC1E0051F200E9FAE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8DB63ACD1E0051F200E9FAE3 /* CocoaLumberjack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaLumberjack.swift; sourceTree = "<group>"; };
-		8DB63ACE1E0051F200E9FAE3 /* DDAerialLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDAerialLogger.swift; sourceTree = "<group>"; };
 		8DB63ACF1E0051F200E9FAE3 /* Debugger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
-		8DB63AD01E0051F200E9FAE3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8DB63AD11E0051F200E9FAE3 /* iOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iOS-Bridging-Header.h"; sourceTree = "<group>"; };
-		8DB63AD31E0051F200E9FAE3 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8DB63AE81E00526800E9FAE3 /* Halfpipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Halfpipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DB63B0F1E00537B00E9FAE3 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8DB63B101E00537B00E9FAE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -103,7 +102,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E76AA955F60957246A586F5 /* Pods_Aerial_AerialMac.framework in Frameworks */,
 				335B63AE4E135BB460098D4E /* Pods_Aerial_Halfpipe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,12 +127,37 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8D14DB621E6E25CD0076D8DB /* loggers */ = {
+			isa = PBXGroup;
+			children = (
+				8D14DB631E6E25CD0076D8DB /* CorkDestination.swift */,
+				8D14DB641E6E25CD0076D8DB /* DDAerialLogger.swift */,
+			);
+			path = loggers;
+			sourceTree = "<group>";
+		};
+		8D14DB671E6E25E40076D8DB /* testapp */ = {
+			isa = PBXGroup;
+			children = (
+				8D14DB711E6E25E40076D8DB /* ViewController.swift */,
+				8D14DB681E6E25E40076D8DB /* AppDelegate.swift */,
+				8D14DB6E1E6E25E40076D8DB /* CocoaLumberjack.swift */,
+				8D14DB691E6E25E40076D8DB /* Assets.xcassets */,
+				8D14DB6A1E6E25E40076D8DB /* LaunchScreen.storyboard */,
+				8D14DB6C1E6E25E40076D8DB /* Main.storyboard */,
+				8D14DB6F1E6E25E40076D8DB /* Info.plist */,
+				8D14DB701E6E25E40076D8DB /* iOS-Bridging-Header.h */,
+			);
+			path = testapp;
+			sourceTree = "<group>";
+		};
 		8DB63AA11E00513400E9FAE3 = {
 			isa = PBXGroup;
 			children = (
 				8DB63B2E1E0053F500E9FAE3 /* shared */,
 				8DB63ABF1E0051F200E9FAE3 /* ios */,
 				8DB63B0E1E00537B00E9FAE3 /* macos */,
+				8D14DB671E6E25E40076D8DB /* testapp */,
 				8DB63AAB1E00513400E9FAE3 /* Products */,
 				CFDE2CD79BE4D44B1A395CD7 /* Pods */,
 				1BA3A9606D245587C52A74BA /* Frameworks */,
@@ -154,18 +177,9 @@
 			isa = PBXGroup;
 			children = (
 				8DA860E81E526A0B00B03BA0 /* Protocols.swift */,
-				8DA860EA1E526B7100B03BA0 /* CorkDestination.swift */,
-				8DB63AC71E0051F200E9FAE3 /* AppDelegate.swift */,
-				8DB63ACE1E0051F200E9FAE3 /* DDAerialLogger.swift */,
 				8DB63ACF1E0051F200E9FAE3 /* Debugger.swift */,
-				8DB63AD31E0051F200E9FAE3 /* ViewController.swift */,
 				8D30D9591E0159E7009C1049 /* Container.swift */,
-				8DB63ACD1E0051F200E9FAE3 /* CocoaLumberjack.swift */,
-				8DB63AC91E0051F200E9FAE3 /* LaunchScreen.storyboard */,
-				8DB63ACB1E0051F200E9FAE3 /* Main.storyboard */,
-				8DB63AC81E0051F200E9FAE3 /* Assets.xcassets */,
-				8DB63AD11E0051F200E9FAE3 /* iOS-Bridging-Header.h */,
-				8DB63AD01E0051F200E9FAE3 /* Info.plist */,
+				8D14DB621E6E25CD0076D8DB /* loggers */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -318,8 +332,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DB63B641E00548200E9FAE3 /* Main.storyboard in Resources */,
-				8DB63B631E00548200E9FAE3 /* LaunchScreen.storyboard in Resources */,
+				8D14DB771E6E25E40076D8DB /* Info.plist in Resources */,
+				8D14DB751E6E25E40076D8DB /* Main.storyboard in Resources */,
+				8D14DB731E6E25E40076D8DB /* Assets.xcassets in Resources */,
+				8D14DB741E6E25E40076D8DB /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,18 +462,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DB63B6A1E00549600E9FAE3 /* PeerSession.swift in Sources */,
-				8DB63B611E00547D00E9FAE3 /* ViewController.swift in Sources */,
-				8DB63B621E00547D00E9FAE3 /* CocoaLumberjack.swift in Sources */,
 				8D4447261E11146A00495865 /* NSObject+Notifications.m in Sources */,
 				8D30D9571E015007009C1049 /* Dictionary+KVO.swift in Sources */,
-				8DB63B5E1E00547D00E9FAE3 /* AppDelegate.swift in Sources */,
-				8DB63B5F1E00547D00E9FAE3 /* DDAerialLogger.swift in Sources */,
+				8D14DB721E6E25E40076D8DB /* AppDelegate.swift in Sources */,
 				8DB63B601E00547D00E9FAE3 /* Debugger.swift in Sources */,
 				8DB63B6B1E00549600E9FAE3 /* Socket.swift in Sources */,
-				8DA860EB1E526B7100B03BA0 /* CorkDestination.swift in Sources */,
 				8DB63B671E00549600E9FAE3 /* File.swift in Sources */,
 				8DB63B691E00549600E9FAE3 /* NSObject+KVOBlock.m in Sources */,
+				8D14DB781E6E25E40076D8DB /* ViewController.swift in Sources */,
 				8DB63B6C1E00549600E9FAE3 /* SocketEvent.swift in Sources */,
+				8D14DB651E6E25CD0076D8DB /* CorkDestination.swift in Sources */,
 				8D30D95A1E0159E7009C1049 /* Container.swift in Sources */,
 				8DB63B681E00549600E9FAE3 /* LogMessage.swift in Sources */,
 				8DB63B661E00549600E9FAE3 /* Device.swift in Sources */,
@@ -468,18 +482,18 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8DB63AC91E0051F200E9FAE3 /* LaunchScreen.storyboard */ = {
+		8D14DB6A1E6E25E40076D8DB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8DB63ACA1E0051F200E9FAE3 /* Base */,
+				8D14DB6B1E6E25E40076D8DB /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		8DB63ACB1E0051F200E9FAE3 /* Main.storyboard */ = {
+		8D14DB6C1E6E25E40076D8DB /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8DB63ACC1E0051F200E9FAE3 /* Base */,
+				8D14DB6D1E6E25E40076D8DB /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -538,7 +552,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -581,7 +594,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -592,15 +604,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F0F429841C493BC1CF6025A8 /* Pods-Aerial-Halfpipe.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = JX8G52MA6Q;
 				INFOPLIST_FILE = "$(SRCROOT)/macos/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = yariksmirnov.AerialMac;
+				PRODUCT_BUNDLE_IDENTIFIER = yariksmirnov.Halfpipe;
 				PRODUCT_NAME = Halfpipe;
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "macos/Mac-Bridging-Header.h";
@@ -612,15 +622,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 250672AD925CB4755AB761CA /* Pods-Aerial-Halfpipe.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = JX8G52MA6Q;
 				INFOPLIST_FILE = "$(SRCROOT)/macos/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = yariksmirnov.AerialMac;
+				PRODUCT_BUNDLE_IDENTIFIER = yariksmirnov.Halfpipe;
 				PRODUCT_NAME = Halfpipe;
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "macos/Mac-Bridging-Header.h";
@@ -632,15 +640,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D854753955AE28E44C0C09B5 /* Pods-Aerial-AerialiOS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = JX8G52MA6Q;
-				INFOPLIST_FILE = "$(SRCROOT)/ios/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/testapp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yariksmirnov.AerialiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "ios/iOS-Bridging-Header.h";
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "testapp/iOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -649,15 +657,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E68F5721D6F40559E358BC6C /* Pods-Aerial-AerialiOS.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = JX8G52MA6Q;
-				INFOPLIST_FILE = "$(SRCROOT)/ios/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/testapp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yariksmirnov.AerialiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "ios/iOS-Bridging-Header.h";
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "testapp/iOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
