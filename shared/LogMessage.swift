@@ -50,7 +50,7 @@ enum LogLevel: Int, CustomStringConvertible {
     }
 }
 
-class LogMessage: NSObject, Mappable {
+public class LogMessage: NSObject, Mappable {
     
     var message: String = ""
     var level: LogLevel = .off
@@ -63,11 +63,11 @@ class LogMessage: NSObject, Mappable {
         super.init()
     }
     
-    required init?(map: Map) {
+    required public init?(map: Map) {
         
     }
     
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         message <- map["message"]
         level <- map["level"]
         file <- map["file"]

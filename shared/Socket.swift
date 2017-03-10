@@ -11,7 +11,7 @@ import ObjectMapper
 
 typealias EventHandler = (Any?) -> Void
 
-class Socket: NSObject, StreamDelegate {
+public class Socket: NSObject, StreamDelegate {
     
     enum OpCode : UInt8 {
         case continueFrame = 0x0
@@ -29,7 +29,7 @@ class Socket: NSObject, StreamDelegate {
     
     var inputStream: InputStream?
     var outputStream: OutputStream?
-    
+
     var mapEventsToHandlers = [SocketEvent: EventHandler]()
     
     var eventsQueue = Data()
@@ -217,7 +217,7 @@ class Socket: NSObject, StreamDelegate {
     
     private let emptyBuffer = UnsafeBufferPointer<UInt8>(start: nil, count: 0)
     
-    internal func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
+    public func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
         switch eventCode {
         case Stream.Event.openCompleted:
             Log.info("\(aStream === self.inputStream ? "Input" : "Output") Stream has been opened")

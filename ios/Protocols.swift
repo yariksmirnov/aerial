@@ -9,7 +9,7 @@
 import Foundation
 
 
-protocol CorkLogger {
+public protocol CorkLogger {
 
     var socket: Socket? { get set }
 
