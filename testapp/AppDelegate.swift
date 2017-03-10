@@ -10,7 +10,7 @@ import UIKit
 import CocoaLumberjack
 import XCGLogger
 
-let Log: XCGLogger = {
+let Logger: XCGLogger = {
     let log = XCGLogger(identifier: "advancedLogger", includeDefaultDestinations: false)
     
     // Create a destination for the system console log (via NSLog)
@@ -65,11 +65,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         -> Bool
     {
 
+        debugger.externalLogger = Logger
         debugger.loggers.append(corkDest)
         debugger.startSession()
         
         return true
     }
 
+}
+
+extension XCGLogger: Logging {
+    public func error(_ msg: String) {
+        error(msg, userInfo: [:])
+    }
+    public func warn(_ msg: String) {
+        warning(msg, userInfo: [:])
+    }
+    public func info(_ msg: String) {
+        info(msg, userInfo: [:])
+    }
+    public func debug(_ msg: String) {
+        debug(msg, userInfo: [:])
+    }
+    public func verbose(_ msg: String) {
+        verbose(msg, userInfo: [:])
+    }
 }
 

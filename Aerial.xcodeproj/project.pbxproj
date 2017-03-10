@@ -46,6 +46,7 @@
 		8DB63B6A1E00549600E9FAE3 /* PeerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B351E0053F500E9FAE3 /* PeerSession.swift */; };
 		8DB63B6B1E00549600E9FAE3 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B361E0053F500E9FAE3 /* Socket.swift */; };
 		8DB63B6C1E00549600E9FAE3 /* SocketEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B371E0053F500E9FAE3 /* SocketEvent.swift */; };
+		8DE923C21E6F72B9002074F0 /* AerialLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE923C11E6F72B9002074F0 /* AerialLogger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,7 @@
 		8DB63B361E0053F500E9FAE3 /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		8DB63B371E0053F500E9FAE3 /* SocketEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketEvent.swift; sourceTree = "<group>"; };
 		8DB63B4C1E00547000E9FAE3 /* AerialiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AerialiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DE923C11E6F72B9002074F0 /* AerialLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AerialLogger.swift; sourceTree = "<group>"; };
 		A6C9B218C63F9150AE523B3B /* Pods_Aerial_Halfpipe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aerial_Halfpipe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3646A06AE6BFABDCB90A8D9 /* Pods_Aerial_AerialiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aerial_AerialiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D854753955AE28E44C0C09B5 /* Pods-Aerial-AerialiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aerial-AerialiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Aerial-AerialiOS/Pods-Aerial-AerialiOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				8DA860E81E526A0B00B03BA0 /* Protocols.swift */,
 				8DB63ACF1E0051F200E9FAE3 /* Debugger.swift */,
 				8D30D9591E0159E7009C1049 /* Container.swift */,
+				8DE923C11E6F72B9002074F0 /* AerialLogger.swift */,
 				8D14DB621E6E25CD0076D8DB /* loggers */,
 			);
 			path = ios;
@@ -476,6 +479,7 @@
 				8DB63B681E00549600E9FAE3 /* LogMessage.swift in Sources */,
 				8DB63B661E00549600E9FAE3 /* Device.swift in Sources */,
 				8DA860E91E526A0B00B03BA0 /* Protocols.swift in Sources */,
+				8DE923C21E6F72B9002074F0 /* AerialLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

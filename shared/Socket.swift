@@ -168,7 +168,7 @@ class Socket: NSObject, StreamDelegate {
             }
         }
         guard data.count > 0 else {
-            Log.warning("Recieved zero bytes data from stream, skipping")
+            Log.warn("Recieved zero bytes data from stream, skipping")
             return
         }
         print("\tFinished reading data from input stream")
@@ -234,7 +234,7 @@ class Socket: NSObject, StreamDelegate {
         case Stream.Event.errorOccurred:
             Log.error("\(aStream === self.inputStream ? "Input" : "Output") Stream error: \(aStream.streamError)")
         case Stream.Event.endEncountered:
-            Log.warning("\(aStream === self.inputStream ? "Input" : "Output") Stream encountered end")
+            Log.warn("\(aStream === self.inputStream ? "Input" : "Output") Stream encountered end")
         default:
             break;
         }

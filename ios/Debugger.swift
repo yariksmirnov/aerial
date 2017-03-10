@@ -9,7 +9,17 @@
 import UIKit
 import MultipeerConnectivity
 
-class Debugger: NSObject {
+internal let Log = AerialLogger()
+
+public class Debugger: NSObject {
+
+    public var externalLogger: Logging? {
+        didSet {
+            if let log = externalLogger {
+                Log.log = log
+            }
+        }
+    }
     
     private var session = PeerSession()
     
