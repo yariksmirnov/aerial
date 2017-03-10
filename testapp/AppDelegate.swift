@@ -57,7 +57,7 @@ let TestLog: XCGLogger = {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let debugger = Debugger()
+    let debugger = Aerial()
 
     func application(
         _ application: UIApplication,

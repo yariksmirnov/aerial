@@ -38,7 +38,7 @@
 		8DB63B431E0053F500E9FAE3 /* PeerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B351E0053F500E9FAE3 /* PeerSession.swift */; };
 		8DB63B451E0053F500E9FAE3 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B361E0053F500E9FAE3 /* Socket.swift */; };
 		8DB63B471E0053F500E9FAE3 /* SocketEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B371E0053F500E9FAE3 /* SocketEvent.swift */; };
-		8DB63B601E00547D00E9FAE3 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63ACF1E0051F200E9FAE3 /* Debugger.swift */; };
+		8DB63B601E00547D00E9FAE3 /* Aerial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63ACF1E0051F200E9FAE3 /* Aerial.swift */; };
 		8DB63B661E00549600E9FAE3 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B301E0053F500E9FAE3 /* Device.swift */; };
 		8DB63B671E00549600E9FAE3 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B311E0053F500E9FAE3 /* File.swift */; };
 		8DB63B681E00549600E9FAE3 /* LogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB63B321E0053F500E9FAE3 /* LogMessage.swift */; };
@@ -70,7 +70,7 @@
 		8D4447241E11146A00495865 /* NSObject+Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Notifications.h"; sourceTree = "<group>"; };
 		8D4447251E11146A00495865 /* NSObject+Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Notifications.m"; sourceTree = "<group>"; };
 		8DA860E81E526A0B00B03BA0 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
-		8DB63ACF1E0051F200E9FAE3 /* Debugger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
+		8DB63ACF1E0051F200E9FAE3 /* Aerial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aerial.swift; sourceTree = "<group>"; };
 		8DB63AE81E00526800E9FAE3 /* Halfpipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Halfpipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DB63B0F1E00537B00E9FAE3 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8DB63B101E00537B00E9FAE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				8DA860E81E526A0B00B03BA0 /* Protocols.swift */,
-				8DB63ACF1E0051F200E9FAE3 /* Debugger.swift */,
+				8DB63ACF1E0051F200E9FAE3 /* Aerial.swift */,
 				8D30D9591E0159E7009C1049 /* Container.swift */,
 				8DE923C11E6F72B9002074F0 /* AerialLogger.swift */,
 				8D14DB621E6E25CD0076D8DB /* loggers */,
@@ -468,7 +468,7 @@
 				8D4447261E11146A00495865 /* NSObject+Notifications.m in Sources */,
 				8D30D9571E015007009C1049 /* Dictionary+KVO.swift in Sources */,
 				8D14DB721E6E25E40076D8DB /* AppDelegate.swift in Sources */,
-				8DB63B601E00547D00E9FAE3 /* Debugger.swift in Sources */,
+				8DB63B601E00547D00E9FAE3 /* Aerial.swift in Sources */,
 				8DB63B6B1E00549600E9FAE3 /* Socket.swift in Sources */,
 				8DB63B671E00549600E9FAE3 /* File.swift in Sources */,
 				8DB63B691E00549600E9FAE3 /* NSObject+KVOBlock.m in Sources */,

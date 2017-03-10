@@ -30,9 +30,9 @@ extension LogMessage {
 
 }
 
-class CorkDestination: BaseDestination, CorkLogger {
+public class CorkDestination: BaseDestination, CorkLogger {
 
-    var socket: Socket? {
+    public var socket: Socket? {
         didSet {
             if socket != nil {
                 logs.forEach { logEntry in
@@ -42,7 +42,7 @@ class CorkDestination: BaseDestination, CorkLogger {
         }
     }
 
-    var logs = [LogMessage]()
+    public var logs = [LogMessage]()
 
     open override func output(logDetails: LogDetails, message: String) {
         var logDetails = logDetails

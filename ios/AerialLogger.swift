@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol Logging {
+public protocol AerialLogging {
 
     func error(_ msg: String)
     func warn(_ msg: String)
@@ -20,7 +20,7 @@ public protocol Logging {
 
 final class AerialLogger {
 
-    var log: Logging = PrintLogging()
+    var log: AerialLogging = PrintLogging()
 
     func error(_ msg: String) {
         log.error(msg)
@@ -40,7 +40,7 @@ final class AerialLogger {
 
 }
 
-private final class PrintLogging: Logging {
+private final class PrintLogging: AerialLogging {
     func error(_ msg: String) {
         print(msg)
     }

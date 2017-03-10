@@ -11,9 +11,9 @@ import MultipeerConnectivity
 
 internal let Log = AerialLogger()
 
-public class Debugger: NSObject {
+public class Aerial: NSObject {
 
-    public var externalLogger: Logging? {
+    public var externalLogger: AerialLogging? {
         didSet {
             if let log = externalLogger {
                 Log.log = log
@@ -31,16 +31,16 @@ public class Debugger: NSObject {
         }
     }
     
-    var loggers = [CorkLogger]()
+    public var loggers = [CorkLogger]()
     let container: Container
     
-    override init() {
+    public override init() {
         container = Container(session: self.session)
         super.init()
         session.delegate = self
     }
     
-    func startSession() {
+    public func startSession() {
         session.advertise()
     }
     
@@ -52,7 +52,7 @@ public class Debugger: NSObject {
     }
 }
 
-extension Debugger: PeerSessionDelegate {
+extension Aerial: PeerSessionDelegate {
     
     func session(_ session: PeerSession, didCreate device: Device) {
         self.device = device
