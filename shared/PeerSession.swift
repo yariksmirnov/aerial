@@ -42,7 +42,7 @@ class PeerSession: NSObject {
     fileprivate var isAdvertising = false
     fileprivate var isBrowsing = false
     
-    private var devices = [MCPeerID: Device]()
+    private var devices = [String: Device]()
     
     fileprivate var loadingCompletions = [File: FileRequestCompletion]()
     
@@ -86,11 +86,11 @@ class PeerSession: NSObject {
     }
     
     fileprivate func getOrCreateDevice(withID peerID: MCPeerID) -> Device {
-        if let device = devices[peerID] {
+        if let device = devices[peerID.displayName] {
             return device
         } else {
             let device = Device(peerID: peerID)
-            devices[device.peerID] = device
+            devices[device.peerID.displayName] = device
             delegate?.session(self, didCreate: device)
             return device
         }
@@ -163,7 +163,10 @@ extension PeerSession : MCNearbyServiceBrowserDelegate {
     
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         Log.info("Found peer: \(peerID.displayName)\n")
-        _ = getOrCreateDevice(withID: peerID)
+        let device = getOrCreateDevice(withID: peerID)
+        if device.peerID != peerID {
+            device.peerID = peerID
+        }
         browser.invitePeer(peerID, to: self.session, withContext: nil, timeout: 10)
     }
     
@@ -180,7 +183,10 @@ extension PeerSession : MCNearbyServiceAdvertiserDelegate {
                     invitationHandler: @escaping ((Bool, MCSession?) -> Void))
     {
         Log.info("\nReceive invitation from \(peerID.displayName)")
-        _ = getOrCreateDevice(withID: peerID)
+        let device = getOrCreateDevice(withID: peerID)
+        if device.peerID != peerID {
+            device.peerID = peerID
+        }
         invitationHandler(true, self.session)
     }
 }

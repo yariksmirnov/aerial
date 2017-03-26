@@ -56,15 +56,17 @@ class File: NSObject, Mappable {
     static func printTree(tree: [File], indentLevel: Int = 0) {
         let indent = Array(repeating: "  ", count: indentLevel).reduce("") { "\($0)\($1)" }
         if indentLevel > 0 {
-            print("\(indent)\\")
+            Log.d("\(indent)\\")
         }
         for file in tree {
-            print("\(indent) --- \(file.name)", terminator: "")
+            if Logger.level.isInclude(level: .debug) {
+                print("\(indent) --- \(file.name)", terminator: "")
+            }
             if !file.isLeaf && file.children.count > 0 {
-                print("")
+                Log.d("")
                 printTree(tree: file.children, indentLevel: indentLevel + 2)
             }
-            print("")
+            Log.d("")
         }
     }
 }

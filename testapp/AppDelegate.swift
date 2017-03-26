@@ -10,27 +10,6 @@ import UIKit
 import CocoaLumberjack
 import XCGLogger
 
-let Logger: XCGLogger = {
-    let log = XCGLogger(identifier: "advancedLogger", includeDefaultDestinations: false)
-    
-    // Create a destination for the system console log (via NSLog)
-    let systemDestination = ConsoleDestination(identifier: "advancedLogger.systemDestination")
-    
-    systemDestination.outputLevel = .debug
-    systemDestination.showLogIdentifier = false
-    systemDestination.showFunctionName = false
-    systemDestination.showThreadName = false
-    systemDestination.showLevel = false
-    systemDestination.showFileName = false
-    systemDestination.showLineNumber = false
-    systemDestination.showDate = false
-    
-    // Add the destination to the logger
-    log.add(destination: systemDestination)
-    
-    return log
-}()
-
 let corkDest = CorkDestination(identifier: "cork")
 
 let TestLog: XCGLogger = {
@@ -65,30 +44,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         -> Bool
     {
 
-        debugger.externalLogger = Logger
+        Logger.level = .verbose
+
         debugger.loggers.append(corkDest)
         debugger.startSession()
         
         return true
     }
 
-}
-
-extension XCGLogger: Logging {
-    public func error(_ msg: String) {
-        error(msg, userInfo: [:])
-    }
-    public func warn(_ msg: String) {
-        warning(msg, userInfo: [:])
-    }
-    public func info(_ msg: String) {
-        info(msg, userInfo: [:])
-    }
-    public func debug(_ msg: String) {
-        debug(msg, userInfo: [:])
-    }
-    public func verbose(_ msg: String) {
-        verbose(msg, userInfo: [:])
-    }
 }
 

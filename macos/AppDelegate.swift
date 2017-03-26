@@ -7,29 +7,6 @@
 //
 
 import Cocoa
-import XCGLogger
-
-let Log: XCGLogger = {
-    let log = XCGLogger(identifier: "advancedLogger", includeDefaultDestinations: false)
-    
-    // Create a destination for the system console log (via NSLog)
-    let systemDestination = ConsoleDestination(identifier: "advancedLogger.systemDestination")
-    
-    // Optionally set some configuration options
-    systemDestination.outputLevel = .debug
-    systemDestination.showLogIdentifier = false
-    systemDestination.showFunctionName = false
-    systemDestination.showThreadName = false
-    systemDestination.showLevel = false
-    systemDestination.showFileName = false
-    systemDestination.showLineNumber = false
-    systemDestination.showDate = false
-    
-    // Add the destination to the logger
-    log.add(destination: systemDestination)
-    
-    return log
-}()
 
 import MASPreferences
 
@@ -45,6 +22,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+
+        Logger.level = .verbose
         
         let levels: [LogLevel] = [.fatal, .error, .warning, .info, .debug, .verbose]
         var colorsDefault = [String: Data]()

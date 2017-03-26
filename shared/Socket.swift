@@ -47,14 +47,14 @@ public class Socket: NSObject, StreamDelegate {
         writeQueue.addOperation { [weak self] in
             guard let s = self else { return }
             do {
-                print("\nSending \(event) event...")
+                Log.v("\nSending \(event) event...")
                 let eventWrapper = SocketEventWrapper()
                 eventWrapper.name = event
                 eventWrapper.data = data
                 
                 let json = eventWrapper.toJSON()
                 let eventData = try JSONSerialization.data(withJSONObject: json, options: [])
-                print("\tSerialized event data of \(eventData.count) bytes")
+                Log.v("\tSerialized event data of \(eventData.count) bytes")
                 
                 let offset = MemoryLayout<UInt64>.size
                 var packet = Data(count: eventData.count + offset)
@@ -62,19 +62,19 @@ public class Socket: NSObject, StreamDelegate {
                     Socket.writeUint64(buffer, offset: 0, value: UInt64(eventData.count))
                     eventData.copyBytes(to: buffer + offset, count: eventData.count)
                 }
-                print("\tAppneding event packet of \(packet.count) bytes")
+                Log.v("\tAppneding event packet of \(packet.count) bytes")
                 s.eventsQueue.append(packet)
                 
-                print("\tChecking stream availibility...")
+                Log.v("\tChecking stream availibility...")
                 if s.outputStream?.hasSpaceAvailable == true && s.outputStream?.streamStatus == .open {
-                    print("\tOutput stream is available. Will proccess write...")
+                    Log.v("\tOutput stream is available. Will proccess write...")
                     s.processWrite()
                 } else {
-                    print("\tOutput stream is unavailable. Will wait for available space...")
+                    Log.v("\tOutput stream is unavailable. Will wait for available space...")
                 }
                 
             } catch (let error) {
-                Log.error("Failed to serialize data for event \(event): \(error)")
+                Log.e("Failed to serialize data for event \(event): \(error)")
             }
         }
     }
@@ -112,29 +112,29 @@ public class Socket: NSObject, StreamDelegate {
         writeQueue.addOperation { [weak self] in
             guard let s = self else { return }
             guard s.eventsQueue.count > 0 else {
-                print("\tQueue is empty. Skipping write.")
+                Log.v("\tQueue is empty. Skipping write.")
                 return
             }
-            print("Proccessing write...")
+            Log.v("Proccessing write...")
             var total = 0
             let maxLength = s.eventsQueue.count
-            print("\tEvent queue length: \(s.eventsQueue.count) bytes")
+            Log.v("\tEvent queue length: \(s.eventsQueue.count) bytes")
             guard let outStream = s.outputStream else { return }
             s.eventsQueue.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
                 while true {
                     let writeBuffer = UnsafeRawPointer(bytes + total).assumingMemoryBound(to: UInt8.self)
-                    print("\t\tTrying to write buffer of \(s.eventsQueue.count - total) bytes")
+                    Log.v("\t\tTrying to write buffer of \(s.eventsQueue.count - total) bytes")
                     let len = outStream.write(writeBuffer, maxLength: maxLength - total)
                     if len < 0 {
-                        Log.error("Failed to write to outputStream: \(outStream.streamError)")
+                        Log.v("Failed to write to outputStream: \(outStream.streamError)")
                         s.eventsQueue.removeAll()
                         break
                     } else {
-                        print("\t\tSuccessfully write \(len) bytes")
+                        Log.v("\t\tSuccessfully write \(len) bytes")
                         total += len
                     }
                     if total >= maxLength {
-                        print("\t\tTotal: \(total) bytes.\n\t\tClearing queue...")
+                        Log.v("\t\tTotal: \(total) bytes.\n\t\tClearing queue...")
                         s.eventsQueue.removeAll()
                         break
                     }
@@ -144,40 +144,40 @@ public class Socket: NSObject, StreamDelegate {
     }
     
     private func proccessInput() {
-        print("\nProccessing Input...")
+        Log.v("\nProccessing Input...")
         var data = Data()
         guard let input = inputStream else {
-            print("\tNo input stream available. Propably was closed. Skipping...")
+            Log.v("\tNo input stream available. Propably was closed. Skipping...")
             return
         }
-        print("\tStream status: \(stat_str(input.streamStatus))")
+        Log.v("\tStream status: \(stat_str(input.streamStatus))")
         if inputStream?.streamError != nil {
-            print("\tStream error: \(input.streamError)")
+            Log.v("\tStream error: \(input.streamError)")
         }
         while (input.streamStatus == .open && input.hasBytesAvailable != false) {
             var buffer = [UInt8](repeating: 0, count: 4096)
             let length = input.read(&buffer, maxLength: buffer.count)
-            print("\t\tHas read \(length) bytes")
+            Log.v("\t\tHas read \(length) bytes")
             if length < 0 {
                 fatalError("Failed to read data from stream: \(input.streamError)")
             }
             data.append(buffer, count: length)
             if inputStream?.streamStatus == .closed {
-                print("\tStream status changed to closed")
+                Log.v("\tStream status changed to closed")
                 return
             }
         }
         guard data.count > 0 else {
-            Log.warn("Recieved zero bytes data from stream, skipping")
+            Log.w("Recieved zero bytes data from stream, skipping")
             return
         }
-        print("\tFinished reading data from input stream")
-        print("\t\tTotal bytes read: \(data.count)")
-        print("\tStart proccessing packets from buffer...")
+        Log.v("\tFinished reading data from input stream")
+        Log.v("\t\tTotal bytes read: \(data.count)")
+        Log.v("\tStart proccessing packets from buffer...")
         data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
             var buffer = UnsafeBufferPointer(start: bytes, count: data.count)
             repeat {
-                print("\t\tTrying to fetch packet from buffer of \(buffer.count) bytes ...")
+                Log.v("\t\tTrying to fetch packet from buffer of \(buffer.count) bytes ...")
                 buffer = processRawInputData(inBuffer: buffer)
             } while buffer.count > 0
         }
@@ -186,29 +186,29 @@ public class Socket: NSObject, StreamDelegate {
     private func processRawInputData(inBuffer buffer: UnsafeBufferPointer<UInt8>) -> UnsafeBufferPointer<UInt8> {
         guard let baseAddress = buffer.baseAddress else { return emptyBuffer }
         let length = Int(Socket.readUint64(baseAddress, offset: 0))
-        print("\t\t\tPacket length: \(length) bytes")
+        Log.v("\t\t\tPacket length: \(length) bytes")
         if length > buffer.count {
-            print("\t\t\tERROR: Invalid packet length. Skipping buffer...")
+            Log.v("\t\t\tERROR: Invalid packet length. Skipping buffer...")
             return emptyBuffer
         }
         let offset = MemoryLayout<UInt64>.size
         let eventData = Data(bytes: baseAddress + offset, count: Int(length))
         
-        print("\t\t\tWill parse packet as JSON data...")
+        Log.v("\t\t\tWill parse packet as JSON data...")
         do {
             let jsonDict = try JSONSerialization.jsonObject(with: eventData, options: []) as! [String: Any]
             if let eventWrapper = Mapper<SocketEventWrapper>().map(JSON: jsonDict) {
-                print("\t\t\tDid parse packet for \(eventWrapper.name) event. Finding handler...")
+                Log.v("\t\t\tDid parse packet for \(eventWrapper.name) event. Finding handler...")
                 let handler = self.mapEventsToHandlers[eventWrapper.name]
                 if handler != nil {
-                    print("\t\t\tDid found handler. Will notify on main queue.\n")
+                    Log.v("\t\t\tDid found handler. Will notify on main queue.\n")
                 }
                 DispatchQueue.main.async {
                     handler?(eventWrapper.data)
                 }
             }
         } catch (let error) {
-            Log.error("Input events proccessing error: \(error)")
+            Log.e("Input events proccessing error: \(error)")
             return emptyBuffer
         }
         
@@ -220,21 +220,21 @@ public class Socket: NSObject, StreamDelegate {
     public func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
         switch eventCode {
         case Stream.Event.openCompleted:
-            Log.info("\(aStream === self.inputStream ? "Input" : "Output") Stream has been opened")
+            Log.i("\(aStream === self.inputStream ? "Input" : "Output") Stream has been opened")
         case Stream.Event.hasSpaceAvailable:
             if aStream == outputStream {
-                print("\nOutput stream has available space. Will check for packet waiting to be send...")
+                Log.v("\nOutput stream has available space. Will check for packet waiting to be send...")
                 processWrite()
             }
         case Stream.Event.hasBytesAvailable:
             if aStream == inputStream {
-                print("\nInput stream had bytes available. Will try read from stream...")
+                Log.v("\nInput stream had bytes available. Will try read from stream...")
                 proccessInput()
             }
         case Stream.Event.errorOccurred:
-            Log.error("\(aStream === self.inputStream ? "Input" : "Output") Stream error: \(aStream.streamError)")
+            Log.e("\(aStream === self.inputStream ? "Input" : "Output") Stream error: \(aStream.streamError)")
         case Stream.Event.endEncountered:
-            Log.warn("\(aStream === self.inputStream ? "Input" : "Output") Stream encountered end")
+            Log.w("\(aStream === self.inputStream ? "Input" : "Output") Stream encountered end")
         default:
             break;
         }

@@ -11,7 +11,7 @@ import ObjectMapper
 
 class Device: NSObject {
     
-    fileprivate(set) var peerID: MCPeerID
+    var peerID: MCPeerID
     var input: InputStream? {
         didSet {
             tryConfigureSocket()
@@ -85,7 +85,7 @@ class Device: NSObject {
 extension Device {
     
     public static func ==(lhs: Device, rhs: Device) -> Bool {
-        return lhs.peerID == rhs.peerID
+        return lhs.peerID.displayName == rhs.peerID.displayName
     }
     
 }
