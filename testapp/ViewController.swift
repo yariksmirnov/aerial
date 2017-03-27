@@ -13,6 +13,7 @@ import XCGLogger
 class ViewController: UIViewController {
     
     var timer: Timer?
+    var aerial: Aerial?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,14 @@ class ViewController: UIViewController {
         TestLog.info("Log messages have to contain usefull and clear information.")
         TestLog.debug("All of my variables are nil.")
         TestLog.verbose("Call this method, then that..")
+
+        aerial?.updateDebugInfo {
+            ["APNS Token" : UUID().uuidString,
+             "User Token" : UUID().uuidString,
+             "Account ID" : "KZJDIWNO",
+             "Access Token": UUID().uuidString
+             ]
+        }
     }
 }
 

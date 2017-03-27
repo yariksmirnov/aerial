@@ -43,6 +43,10 @@ class DeviceViewController: NSViewController {
     @IBOutlet var arrayController: NSArrayController!
     @IBOutlet var outlineView: NSOutlineView!
     @IBOutlet var searchField: NSSearchField!
+
+    @IBOutlet var verticalSplitView: NSSplitView!
+    @IBOutlet var horizontalSplitView: NSSplitView!
+    @IBOutlet var inspectorView: NSView!
     
     var logLevel: LogLevel = .debug
     
@@ -52,7 +56,6 @@ class DeviceViewController: NSViewController {
     var logFilter: (([LogMessage]) -> [LogMessage])!
     var logs = [LogMessage]()
     var logsObservationToken: Any?
-
 
     override func viewDidLoad() {
         super.viewDidLoad()

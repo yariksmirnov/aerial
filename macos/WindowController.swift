@@ -12,6 +12,8 @@ class WindowController: NSWindowController {
 
     override func windowDidLoad() {
         super.windowDidLoad()
+        window?.titlebarAppearsTransparent = true
+        window?.titleVisibility = .hidden
         window?.title = "Halfpipe"
 
         if let screenRect = window?.screen?.frame {

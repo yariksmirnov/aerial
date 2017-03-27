@@ -13,6 +13,7 @@ enum SocketEvent: String {
     case log
     case containerTree
     case loadFile
+    case inspector
 }
 
 class SocketEventWrapper: Mappable {

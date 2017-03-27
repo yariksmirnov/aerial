@@ -8,6 +8,7 @@
 
 import MultipeerConnectivity
 import ObjectMapper
+import Dollar
 
 class Device: NSObject {
     
@@ -61,7 +62,7 @@ class Device: NSObject {
         socket.on(.log) { [weak self] data in
             guard let logData = data as? [String: Any] else { return }
             if let message = Mapper<LogMessage>().map(JSON: logData) {
-                let mLogs = self?.mutableArrayValue(forKeyPath: "logs")
+                let mLogs = self?.mutableArrayValue(forKeyPath: #keyPath(logs))
                 mLogs?.add(message)
             }
         }
@@ -72,6 +73,24 @@ class Device: NSObject {
                 File.printTree(tree: tree)
             }
         }
+        socket.on(.inspector) { [weak self] data in
+            guard let s = self else { return }
+            guard let recordsData = data as? [[String: Any]] else { return }
+            if let records = Mapper<InspectorRecord>().mapArray(JSONArray: recordsData) {
+                var newRecords = records
+                var newInfo = s.inspectorInfo
+                for record in newInfo {
+                    for newRecord in records {
+                        if newRecord.title == record.title {
+                            record.value = newRecord.value
+                             newRecords = $.remove(newRecords, value: newRecord)
+                        }
+                    }
+                }
+                newInfo.append(contentsOf: newRecords)
+                s.inspectorInfo = newInfo
+            }
+        }
     }
     
     dynamic var logs = [LogMessage]()
@@ -80,6 +99,8 @@ class Device: NSObject {
     override var hashValue: Int {
         return peerID.hashValue
     }
+
+    dynamic var inspectorInfo = [InspectorRecord]()
 }
 
 extension Device {

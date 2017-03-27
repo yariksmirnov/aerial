@@ -48,6 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         debugger.loggers.append(corkDest)
         debugger.startSession()
+
+        (window?.rootViewController as? ViewController)?.aerial = debugger
         
         return true
     }
