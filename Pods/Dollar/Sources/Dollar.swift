@@ -220,6 +220,31 @@ open class $ {
         }
     }
 
+    /// Delays the execution of a function by the specified DispatchTimeInterval
+    ///
+    /// - parameter by: interval to delay the execution of the function by
+    /// - parameter queue: Queue to run the function on. Defaults to main queue
+    /// - parameter function: function to execute
+    open class func delay(by interval: DispatchTimeInterval, queue: DispatchQueue = .main, _ function: @escaping () -> Void) {
+        queue.asyncAfter(deadline: .now() + interval, execute: function)
+    }
+
+    /// Debounce a function such that the function is only invoked once no matter how many times
+    /// it is called within the delayBy interval
+    ///
+    /// - parameter delayBy: interval to delay the execution of the function by
+    /// - parameter queue: Queue to run the function on. Defaults to main queue
+    /// - parameter function: function to execute
+    /// - returns: Function that is debounced and will only invoke once within the delayBy interval
+    open class func debounce(delayBy: DispatchTimeInterval, queue: DispatchQueue = .main, _ function: @escaping (() -> Void)) -> () -> Void {
+        var currentWorkItem: DispatchWorkItem?
+        return {
+            currentWorkItem?.cancel()
+            currentWorkItem = DispatchWorkItem { function() }
+            queue.asyncAfter(deadline: .now() + delayBy, execute: currentWorkItem!)
+        }
+    }
+
     /// Creates an array excluding all values of the provided arrays in order
     ///
     /// - parameter arrays: The arrays to difference between.
@@ -270,6 +295,7 @@ open class $ {
     /// - parameter array: The array to iterate over
     /// - parameter callback: function that gets called with each item in the array
     /// - returns: The array passed
+    @discardableResult
     open class func each<T>(_ array: [T], callback: (T) -> ()) -> [T] {
         for elem in array {
             callback(elem)
@@ -282,6 +308,7 @@ open class $ {
     /// - parameter array: The array to iterate over
     /// - parameter callback: function that gets called with each item in the array with its index
     /// - returns: The array passed
+    @discardableResult
     open class func each<T>(_ array: [T], callback: (Int, T) -> ()) -> [T] {
         for (index, elem): (Int, T) in array.enumerated() {
             callback(index, elem)
@@ -295,6 +322,7 @@ open class $ {
     /// - parameter when: Condition to check before performing callback
     /// - parameter callback: Check whether element value is true or false.
     /// - returns: The array passed
+    @discardableResult
     open class func each<T>(_ array: [T], when: (T) -> Bool, callback: (T) -> ()) -> [T] {
         for elem in array where when(elem) {
             callback(elem)
@@ -324,7 +352,7 @@ open class $ {
     ///
     /// - parameter array: The array to check.
     /// - parameter callback: Check whether element value is true or false.
-    /// - returns: First element from the array.
+    /// - returns: true if the given callback returns true value for all items in the array; false otherwise.
     open class func every<T>(_ array: [T], callback: (T) -> Bool) -> Bool {
         for elem in array {
             if !callback(elem) {

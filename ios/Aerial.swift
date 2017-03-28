@@ -9,6 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 import ObjectMapper
+import Dollar
 
 public class Aerial: NSObject {
     
@@ -40,10 +41,18 @@ public class Aerial: NSObject {
             logger.socket = device.socket
         }
         container.device = device
+        sendDebugInfo()
     }
 
-    public func updateDebugInfo(_ info: () -> [String: String]) {
-        let records = info().map { InspectorRecord(title: $0.key, value: $0.value) }.toJSON()
+    private var inspectorInfo = [String: Any]()
+
+    public func updateDebugInfo(_ info: () -> [String: Any]) {
+        inspectorInfo = $.merge(inspectorInfo, info())
+        sendDebugInfo()
+    }
+
+    private func sendDebugInfo() {
+        let records = inspectorInfo.map { InspectorRecord(title: $0.key, value: $0.value) }.toJSON()
         device?.socket.send(event: .inspector, withData: records)
     }
 }

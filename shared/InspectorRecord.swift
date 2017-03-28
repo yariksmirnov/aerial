@@ -12,9 +12,9 @@ import ObjectMapper
 class InspectorRecord: NSObject, Mappable {
 
     var title = ""
-    var value = ""
+    var value: Any = ""
 
-    init(title: String = "Test Title", value: String = "Test Value") {
+    init(title: String = "Test Title", value: Any = "") {
         self.title = title
         self.value = value
         super.init()

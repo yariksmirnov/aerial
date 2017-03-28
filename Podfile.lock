@@ -5,9 +5,10 @@ PODS:
   - CocoaLumberjack/Default (3.1.0)
   - CocoaLumberjack/Extensions (3.1.0):
     - CocoaLumberjack/Default
-  - Dollar (6.1.0)
+  - Dollar (6.2.0)
   - MASPreferences (1.1.4)
   - ObjectMapper (2.2.5)
+  - PureLayout (3.0.2)
   - XCGLogger (4.0.0):
     - XCGLogger/Core (= 4.0.0)
   - XCGLogger/Core (4.0.0)
@@ -17,15 +18,17 @@ DEPENDENCIES:
   - Dollar
   - MASPreferences
   - ObjectMapper
+  - PureLayout
   - XCGLogger (~> 4.0.0)
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 8311463ddf9ee86a06ef92a071dd656c89244500
-  Dollar: 0a9883680f2c1104adf0d19b827c3be71d3e3121
+  Dollar: da81aacae30cf7dd059bfdfec709e97f2f0ae2f8
   MASPreferences: 7bdcfe891d7840453cf48f95fa866c3e152ace7a
   ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898
+  PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   XCGLogger: 38063ea89b4c8b23232d18efd2e12eb0005f3ea4
 
-PODFILE CHECKSUM: 075ac6577b2d98a5d1b13f830bd8abdcda03fea9
+PODFILE CHECKSUM: fe80e3405f11bf5d91abf9252ab7d487d1c67063
 
 COCOAPODS: 1.2.0

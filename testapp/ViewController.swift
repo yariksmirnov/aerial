@@ -20,6 +20,24 @@ class ViewController: UIViewController {
         
         timer = Timer(timeInterval: 2, target: self, selector: #selector(startLogging), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: .defaultRunLoopMode)
+
+
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        aerial?.updateDebugInfo {
+            ["APNS Token" : UUID().uuidString,
+             "User Token" : UUID().uuidString,
+             "Account ID" : "KZJDIWNO",
+             "Access Token": UUID().uuidString,
+             "Account" : [
+                "Name" : "Enterprise Wrike",
+                "ID" : "KSDIDKD",
+                "Role" : "Collaborator"
+                ]
+            ]
+        }
     }
     
     func startLogging() {
@@ -33,8 +51,13 @@ class ViewController: UIViewController {
             ["APNS Token" : UUID().uuidString,
              "User Token" : UUID().uuidString,
              "Account ID" : "KZJDIWNO",
-             "Access Token": UUID().uuidString
-             ]
+             "Access Token": UUID().uuidString,
+             "Account" : [
+                "Name" : "Enterprise Wrike",
+                "ID" : "KSDIDKD",
+                "Role" : "Collaborator"
+                ]
+            ]
         }
     }
 }

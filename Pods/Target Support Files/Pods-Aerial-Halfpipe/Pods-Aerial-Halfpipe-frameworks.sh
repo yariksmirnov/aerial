@@ -93,12 +93,14 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ObjectMapper-OSX/ObjectMapper.framework"
   install_framework "$BUILT_PRODUCTS_DIR/XCGLogger-OSX/XCGLogger.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MASPreferences/MASPreferences.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/PureLayout/PureLayout.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Dollar-OSX/Dollar.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ObjectMapper-OSX/ObjectMapper.framework"
   install_framework "$BUILT_PRODUCTS_DIR/XCGLogger-OSX/XCGLogger.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MASPreferences/MASPreferences.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/PureLayout/PureLayout.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

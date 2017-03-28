@@ -40,13 +40,12 @@ class DeviceViewController: NSViewController {
     @IBOutlet var logsTextView: NSTextView!
     
     @IBOutlet var treeController: NSTreeController!
-    @IBOutlet var arrayController: NSArrayController!
     @IBOutlet var outlineView: NSOutlineView!
     @IBOutlet var searchField: NSSearchField!
 
     @IBOutlet var verticalSplitView: NSSplitView!
     @IBOutlet var horizontalSplitView: NSSplitView!
-    @IBOutlet var inspectorView: NSView!
+    @IBOutlet var inspectorView: InspectorView!
     
     var logLevel: LogLevel = .debug
     
@@ -56,6 +55,7 @@ class DeviceViewController: NSViewController {
     var logFilter: (([LogMessage]) -> [LogMessage])!
     var logs = [LogMessage]()
     var logsObservationToken: Any?
+    var inspectorRecordsToken: Any?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,13 +127,23 @@ class DeviceViewController: NSViewController {
                 break
             }
         }
+        inspectorRecordsToken = device.ys_addObserver(forKeyPath: "inspectorInfo",
+                                                      options: [.new, .initial])
+        { [weak self] obj, change, observer in
+            guard let this = self else { return }
+            guard let newRecords = change?.setted as? [InspectorRecord] else { return }
+            this.inspectorView.configure(withRecords: newRecords)
+        }
     }
     
     func unsubscribe(from device: Device?) {
         if let token = logsObservationToken {
             device?.ys_removeObserver(token)
         }
-    }
+        if let token = inspectorRecordsToken {
+            device?.ys_removeObserver(token)
+        }
+     }
     
     func subscribeToPreferences() {
         let defaults = NSUserDefaultsController.shared()
