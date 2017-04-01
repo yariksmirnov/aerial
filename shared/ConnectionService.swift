@@ -48,17 +48,25 @@ final class ConnectionService {
             return
         }
         if let jsonData = packet.data() {
-            session.send(data: jsonData, toDevice: device)
+            if !session.send(data: jsonData, toDevice: device) {
+                waitingPackets.append(packet)
+            } else {
+                guard !waitingPackets.isEmpty else { return }
+                flushWaitingPackets()
+            }
         }
     }
 
     func flushWaitingPackets() {
-        waitingPackets
-            .flatMap { $0.data() }
-            .forEach { [unowned self] data in
-                self.session.send(data: data, toDevice: self.device)
+        var failedPackets = [Packet]()
+        waitingPackets.forEach {
+            guard let data = $0.data() else { return }
+            if !self.session.send(data: data, toDevice: self.device) {
+                failedPackets.append($0)
+            }
         }
         waitingPackets.removeAll()
+        waitingPackets.append(contentsOf: failedPackets)
     }
 
     func send(file: File) {

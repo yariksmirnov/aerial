@@ -29,6 +29,7 @@ final class Container {
     
     func updateContainerTree() {
         tree = tree(forDirectory: containerUrl)
+        sendTree()
     }
     
     private func installListeners() {

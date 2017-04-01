@@ -103,11 +103,13 @@ final class PeerSession: NSObject {
         listeners[device.name] = listener
     }
 
-    func send(data: Data, toDevice device: Device) {
+    func send(data: Data, toDevice device: Device) -> Bool {
         do {
             try session.send(data, toPeers: [device.peerID], with: .reliable)
+            return true
         } catch {
             Log.e("Failed to send data to \(device.name): \(error.localizedDescription)")
+            return false
         }
     }
 
