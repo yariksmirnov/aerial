@@ -7,20 +7,11 @@
 //
 
 import Foundation
+import ObjectMapper
 
-class Container {
+final class Container {
     
-    var device: Device? {
-        didSet {
-            if device != nil {
-                installListeners()
-                updateContainerTree()
-                sendTree()
-            }
-        }
-    }
-    var session: PeerSession
-    
+    let service: ConnectionService
     var tree = [File]()
     
     var containerUrl: URL {
@@ -29,8 +20,9 @@ class Container {
         return docUrl!.deletingLastPathComponent()
     }
     
-    init(session: PeerSession) {
-        self.session = session
+    init(device: Device) {
+        self.service = device.service
+        installListeners()
         updateContainerTree()
         File.printTree(tree: tree)
     }
@@ -40,22 +32,19 @@ class Container {
     }
     
     private func installListeners() {
-        device?.socket.on(.containerTree) { data in
+        service.on(.containerTree) { data, _ in
             
         }
-        device?.socket.on(.loadFile) { data in
-            guard let fileRequest = data as? [String: Any] else { return }
-            guard let url = URL(string: fileRequest["url"] as? String ?? "")?.absoluteURL else { return }
-            
-            self.session.send(fileUrl: url, toDevice: self.device!) { error in
-                
-            }
+        service.on(.loadFile) { [weak self] data, _ in
+            guard let json = data as? [String: Any] else { return }
+            guard let file = Mapper<File>().map(JSON: json) else { return }
+            self?.service.send(file: file)
         }
     }
     
     private func sendTree() {
         let data = tree.toJSON()
-        device?.socket.send(event: .containerTree, withData: data)
+        service.send(event: .containerTree, withData: data)
     }
     
     private func tree(forDirectory directory: URL) -> [File] {

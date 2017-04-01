@@ -17,17 +17,16 @@ public class Aerial: NSObject {
     
     var device: Device? {
         didSet {
-            if device != nil {
-                updateSubsystems(withDevice: device!)
+            if let _ = device {
+                updateSubsystems()
             }
         }
     }
     
     public var loggers = [CorkLogger]()
-    let container: Container
+    var container: Container?
     
     public override init() {
-        container = Container(session: self.session)
         super.init()
         session.delegate = self
     }
@@ -36,11 +35,11 @@ public class Aerial: NSObject {
         session.advertise()
     }
     
-    func updateSubsystems(withDevice device: Device) {
+    func updateSubsystems() {
         for var logger in loggers {
-            logger.socket = device.socket
+            logger.device = device
         }
-        container.device = device
+        container = Container(device: device!)
         sendDebugInfo()
     }
 
@@ -53,7 +52,7 @@ public class Aerial: NSObject {
 
     private func sendDebugInfo() {
         let records = inspectorInfo.map { InspectorRecord(title: $0.key, value: $0.value) }.toJSON()
-        device?.socket.send(event: .inspector, withData: records)
+        device?.service.send(event: .inspector, withData: records)
     }
 }
 

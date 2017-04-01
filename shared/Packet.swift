@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-enum SocketEvent: String {
+enum Event: String {
     case unknown
     case log
     case containerTree
@@ -16,10 +16,18 @@ enum SocketEvent: String {
     case inspector
 }
 
-class SocketEventWrapper: Mappable {
+enum Method: String {
+    case get
+    case post
+    case put
+    case delete
+}
+
+class Packet: Mappable {
     
-    var name: SocketEvent = .unknown
+    var name: Event = .unknown
     var data: Any?
+    var method: Method = .get
     
     init() {
         

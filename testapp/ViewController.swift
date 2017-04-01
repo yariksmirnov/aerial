@@ -21,7 +21,6 @@ class ViewController: UIViewController {
         timer = Timer(timeInterval: 2, target: self, selector: #selector(startLogging), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: .defaultRunLoopMode)
 
-
     }
 
     override func viewDidAppear(_ animated: Bool) {

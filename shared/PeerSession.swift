@@ -27,26 +27,38 @@ class FileRequest {
 
 typealias FileRequestCompletion = (URL, Error?) -> Void
 
-class PeerSession: NSObject {
+protocol PeerSessionListener {
+
+    func onReceive(data: Data)
+    func onReceive(file: File, error: Error?)
+
+}
+
+final class PeerSession: NSObject {
     
-    fileprivate var session: MCSession
+    fileprivate(set) var session: MCSession
     #if os(iOS)
     private var peer = MCPeerID(displayName: UIDevice.current.name)
     #else
     private var peer = MCPeerID(displayName: Host.current().localizedName!)
     #endif
     private let AerialServiceType = "aerialdebuger"
-    private var browser: MCNearbyServiceBrowser?
-    private var advertiser: MCNearbyServiceAdvertiser?
+    var browser: MCNearbyServiceBrowser?
+    var advertiser: MCNearbyServiceAdvertiser?
     
-    fileprivate var isAdvertising = false
-    fileprivate var isBrowsing = false
+    fileprivate(set) var isAdvertising = false
+    fileprivate(set) var isBrowsing = false
     
     private var devices = [String: Device]()
-    
-    fileprivate var loadingCompletions = [File: FileRequestCompletion]()
+    fileprivate(set) var loadingCompletions = [File: FileRequestCompletion]()
+
+    private(set) var listeners = [String: PeerSessionListener]()
     
     weak var delegate: PeerSessionDelegate?
+
+    var currentDevice: Device {
+        return getOrCreateDevice(withID: peer)
+    }
     
     override init() {
         self.session = MCSession(
@@ -73,120 +85,42 @@ class PeerSession: NSObject {
         advertiser?.startAdvertisingPeer()
     }
     
-    func getFile(withRequest request: FileRequest, completion: @escaping FileRequestCompletion) {
-        let url = ["url" : request.file.url.absoluteString ]
-        request.device.socket.send(event: .loadFile, withData: url)
-        loadingCompletions[request.file] = completion
-    }
-    
-    func send(fileUrl: URL, toDevice device: Device, completion: @escaping (Error?) -> Void) {
-        session.sendResource(at: fileUrl, withName: fileUrl.absoluteString, toPeer: device.peerID) { error in
-            completion(error)
-        }
-    }
-    
-    fileprivate func getOrCreateDevice(withID peerID: MCPeerID) -> Device {
+    func getOrCreateDevice(withID peerID: MCPeerID) -> Device {
         if let device = devices[peerID.displayName] {
+            if device.peerID != peerID {
+                device.peerID = peerID
+            }
             return device
         } else {
-            let device = Device(peerID: peerID)
+            let device = Device(peerID: peerID, session: self)
             devices[device.peerID.displayName] = device
             delegate?.session(self, didCreate: device)
             return device
         }
     }
-    
-    fileprivate func createOutputStream(forDevice device: Device) {
-        let peerID = device.peerID
+
+    func addListener(_ listener: PeerSessionListener, forDevice device: Device) {
+        listeners[device.name] = listener
+    }
+
+    func send(data: Data, toDevice device: Device) {
         do {
-            device.output = try session.startStream(withName: "\(peerID.displayName)-output", toPeer:device.peerID)
-        } catch (let error) {
-            Log.error("Failed to open stream to \(peerID.displayName): \(error)\n")
+            try session.send(data, toPeers: [device.peerID], with: .reliable)
+        } catch {
+            Log.e("Failed to send data to \(device.name): \(error.localizedDescription)")
         }
     }
-}
 
-extension PeerSession: MCSessionDelegate {
-    
-    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        var stateStr = ""
-        
-        let device = getOrCreateDevice(withID: peerID)
+    func send(fileUrl: URL, toDevice device: Device) {
+        session.sendResource(
+            at: fileUrl,
+            withName: fileUrl.absoluteString,
+            toPeer: device.peerID
+        ) { error in
+            if let e = error {
+                Log.e("Failed to send file at \(fileUrl) to \(device.name): \(e)")
+            }
+        }
+    }
 
-        switch state {
-        case .connected:
-            stateStr = "connected"
-            device.connected = true
-        case .connecting:
-            stateStr = "connecting"
-        case .notConnected:
-            stateStr = "notConnected"
-            device.connected = false
-        }
-        if device.connected {
-            createOutputStream(forDevice: device)
-        }
-        Log.info("\(peerID.displayName) transited to \(stateStr) state\n")
-    }
-    
-    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        let device = getOrCreateDevice(withID: peerID)
-        device.input = stream
-    }
-    
-    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) { }
-    func session(_ session: MCSession,
-                 didFinishReceivingResourceWithName resourceName: String,
-                 fromPeer peerID: MCPeerID,
-                 at localURL: URL,
-                 withError error: Error?)
-    {
-        Log.info("Did receive \(resourceName) from \(peerID.displayName)\n")
-        let device = getOrCreateDevice(withID: peerID)
-        guard let url = URL(string: resourceName) else { return }
-        if let file = device.containerTree[url] {
-            let completion = loadingCompletions[file]
-            completion?(localURL, error)
-            loadingCompletions[file] = nil
-        }
-    }
-    func session(_ session: MCSession,
-                 didStartReceivingResourceWithName resourceName: String,
-                 fromPeer peerID: MCPeerID,
-                 with progress: Progress)
-    {
-        Log.info("Start Receiving \(resourceName) from \(peerID.displayName)\n")
-    }
-}
-
-extension PeerSession : MCNearbyServiceBrowserDelegate {
-    
-    func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
-        Log.info("Found peer: \(peerID.displayName)\n")
-        let device = getOrCreateDevice(withID: peerID)
-        if device.peerID != peerID {
-            device.peerID = peerID
-        }
-        browser.invitePeer(peerID, to: self.session, withContext: nil, timeout: 10)
-    }
-    
-    func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        Log.info("Lost peer: \(peerID.displayName)\n")
-    }
-}
-
-extension PeerSession : MCNearbyServiceAdvertiserDelegate {
-    
-    func advertiser(_ advertiser: MCNearbyServiceAdvertiser,
-                    didReceiveInvitationFromPeer peerID: MCPeerID,
-                    withContext context: Data?,
-                    invitationHandler: @escaping ((Bool, MCSession?) -> Void))
-    {
-        Log.info("\nReceive invitation from \(peerID.displayName)")
-        let device = getOrCreateDevice(withID: peerID)
-        if device.peerID != peerID {
-            device.peerID = peerID
-        }
-        invitationHandler(true, self.session)
-    }
 }

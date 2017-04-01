@@ -78,7 +78,7 @@ public class LogMessage: NSObject, Mappable {
     
 }
 
-extension SocketEventWrapper {
+extension Packet {
     
     convenience init(_ logMessage: LogMessage) {
         self.init()

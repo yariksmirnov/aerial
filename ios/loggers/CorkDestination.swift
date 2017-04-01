@@ -32,17 +32,20 @@ extension LogMessage {
 
 public class CorkDestination: BaseDestination, CorkLogger {
 
-    public var socket: Socket? {
+    private var service: ConnectionService? {
         didSet {
-            if socket != nil {
-                logs.forEach { logEntry in
-                    socket?.send(event: .log, withData: logEntry.toJSON())
-                }
+            if service != nil {
+                service?.send(event: .log, withData: logs.toJSON())
             }
         }
     }
+    public var device: Device? {
+        didSet {
+            service = device?.service
+        }
+    }
 
-    public var logs = [LogMessage]()
+    var logs = [LogMessage]()
 
     open override func output(logDetails: LogDetails, message: String) {
         var logDetails = logDetails
@@ -55,7 +58,7 @@ public class CorkDestination: BaseDestination, CorkLogger {
 
         let logEntry = LogMessage(logDetails: logDetails)
         logs.append(logEntry)
-        socket?.send(event: .log, withData: logEntry.toJSON())
+        service?.send(event: .log, withData: [logEntry].toJSON())
     }
 
 }

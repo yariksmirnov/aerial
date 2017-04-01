@@ -31,6 +31,8 @@ class File: NSObject, Mappable {
     dynamic var isLeaf = true
     dynamic var inspectorUrl: URL?
 
+    var localUrl: URL?
+
     #if os(OSX)
     var icon: NSImage {
         var image: NSImage

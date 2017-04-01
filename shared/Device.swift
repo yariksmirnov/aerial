@@ -10,26 +10,14 @@ import MultipeerConnectivity
 import ObjectMapper
 import Dollar
 
-class Device: NSObject {
+public class Device: NSObject {
     
     var peerID: MCPeerID
-    var input: InputStream? {
+    var service: ConnectionService!
+
+    var state: MCSessionState = .notConnected {
         didSet {
-            tryConfigureSocket()
-        }
-    }
-    var output: OutputStream? {
-        didSet {
-            tryConfigureSocket()
-        }
-    }
-    var socket = Socket()
-    
-    var connected = false {
-        didSet {
-            if !connected {
-                socket.disconect()
-            }
+            service.state = state
         }
     }
     
@@ -42,38 +30,35 @@ class Device: NSObject {
     var name: String {
         return peerID.displayName
     }
+
+    dynamic var logs = [LogMessage]()
+    dynamic var containerTree = [File]()
     
-    init(peerID: MCPeerID) {
+    init(peerID: MCPeerID, session: PeerSession) {
         self.peerID = peerID
         super.init()
+        self.service = ConnectionService(session: session, device: self)
+        installListeners()
     }
     
-    private func tryConfigureSocket() {
-        if let read = input, let write = output {
-            installSocketListeners()
-            socket.configure(read, write)
-            socket.open()
-            input = nil
-            output = nil
-        }
-    }
-    
-    func installSocketListeners() {
-        socket.on(.log) { [weak self] data in
-            guard let logData = data as? [String: Any] else { return }
-            if let message = Mapper<LogMessage>().map(JSON: logData) {
+    private func installListeners() {
+        service.on(.log) { [weak self] data, _ in
+            guard let logData = data as? [[String: Any]] else { return }
+            if let messages = Mapper<LogMessage>().mapArray(JSONArray: logData) {
                 let mLogs = self?.mutableArrayValue(forKeyPath: #keyPath(logs))
-                mLogs?.add(message)
+                mLogs?.addObjects(from: messages)
             }
         }
-        socket.on(.containerTree) { [weak self] data in
+        service.on(.containerTree) { [weak self] data, _ in
             guard let treeData = data as? [[String: Any]] else { return }
             if let tree = Mapper<File>().mapArray(JSONArray: treeData) {
-                self?.containerTree.append(contentsOf: tree)
+                let mTree = self?.mutableArrayValue(forKeyPath: #keyPath(containerTree))
+                mTree?.removeAllObjects()
+                mTree?.addObjects(from: tree)
                 File.printTree(tree: tree)
             }
         }
-        socket.on(.inspector) { [weak self] data in
+        service.on(.inspector) { [weak self] data, _ in
             guard let s = self else { return }
             guard let recordsData = data as? [[String: Any]] else { return }
             if let records = Mapper<InspectorRecord>().mapArray(JSONArray: recordsData) {
@@ -93,10 +78,7 @@ class Device: NSObject {
         }
     }
     
-    dynamic var logs = [LogMessage]()
-    dynamic var containerTree = [File]()
-    
-    override var hashValue: Int {
+    override public var hashValue: Int {
         return peerID.hashValue
     }
 

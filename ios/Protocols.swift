@@ -11,8 +11,6 @@ import Foundation
 
 public protocol CorkLogger {
 
-    var socket: Socket? { get set }
-
-    var logs: [LogMessage] { get set }
+    var device: Device? { get set }
 
 }

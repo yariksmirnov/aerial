@@ -14,6 +14,8 @@ class DeviceManager: NSObject {
     
     let session = PeerSession()
 
+    let filesOpertationsQueue = DispatchQueue(label: "com.yariksmirnov.halfpipe.files")
+
     dynamic var devices = [Device]()
     
     override init() {
@@ -23,14 +25,19 @@ class DeviceManager: NSObject {
     }
     
     func load(file: File, forDevice device: Device, completion: @escaping (File?) -> Void) {
-        let request = FileRequest(file: file, device: device)
-        session.getFile(withRequest: request) { tmpFileUrl, error in
+        device.service.load(file: file) { file, error in
             if let err = error {
-                Log.error("\nFailed to receive file data: \(err)")
+                Log.e("\nFailed to receive file data: \(err)")
                 return
             }
-            let updateFile = self.store(file: file, atLocalUrl: tmpFileUrl, forDevice: device)
-            completion(updateFile)
+            self.filesOpertationsQueue.async {
+                let updatedFile = self.store(
+                    file: file,
+                    atLocalUrl: file.localUrl!,
+                    forDevice: device
+                )
+                completion(updatedFile)
+            }
         }
     }
     
