@@ -10,50 +10,57 @@ import Foundation
 
 extension NotificationCenter {
 
-    static func arl_post(name: Notification.Name, object: AnyObject? = nil, userInfo: [String: Any]? = nil) {
-        NotificationCenter.default.post(name: name, object: object, userInfo: userInfo)
+    static func arl_post(name: String, object: AnyObject? = nil, userInfo: [String: Any]? = nil) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: name),
+                                        object: object, 
+                                        userInfo: userInfo)
     }
 }
 
-var NotificationsObserversKey = "Aerial.NotificationsObserversKey"
+private var NotificationsObserversKey = "Aerial.NotificationsObserversKey"
 
 extension NSObject {
 
-    func arl_subscribe(_ name: Notification.Name, object: AnyObject? = nil, action: @escaping (Notification) -> Void) {
+    func arl_subscribe(_ name: String, object: AnyObject? = nil, action: @escaping (Notification) -> Void) {
         var observers = objc_getAssociatedObject(self, &NotificationsObserversKey) as? NSMutableDictionary
         if observers == nil {
             observers = NSMutableDictionary()
             objc_setAssociatedObject(self, &NotificationsObserversKey, observers, .OBJC_ASSOCIATION_RETAIN)
         }
         let observer = NotificationCenter.default.addObserver(
-            forName: name,
+            forName: NSNotification.Name(rawValue: name),
             object: object,
             queue: OperationQueue.main,
             using: action
         )
-        observers?[name.rawValue] = observer
+        observers?[name] = observer
     }
 
-    func arl_subscribe(_ name: Notification.Name, object: AnyObject? = nil, selector: Selector) {
-        NotificationCenter.default.addObserver(self, selector: selector, name: name, object: object)
+    func arl_subscribe(_ name: String, object: AnyObject? = nil, selector: Selector) {
+        NotificationCenter.default.addObserver(self,
+                                               selector: selector, 
+                                               name: NSNotification.Name(rawValue: name), 
+                                               object: object)
     }
 
-    func arl_unsubscribe(_ name: Notification.Name? = nil) {
+    func arl_unsubscribe(_ name: String? = nil) {
         guard let name = name else {
             arl_unsubscribeFromAll()
             return
         }
         let observers = objc_getAssociatedObject(self, &NotificationsObserversKey) as? NSMutableDictionary
         if observers != nil {
-            if let observer = observers![name.rawValue] {
+            if let observer = observers![name] {
                 NotificationCenter.default.removeObserver(observer)
-                observers![name.rawValue] = nil
+                observers![name] = nil
             }
             if observers!.count == 0 { //swiftlint:disable:this empty_count
                 objc_setAssociatedObject(self, NotificationsObserversKey, nil, .OBJC_ASSOCIATION_RETAIN)
             }
         }
-        NotificationCenter.default.removeObserver(self, name: name, object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name(rawValue: name),
+                                                  object: nil)
     }
 
     private func arl_unsubscribeFromAll() {
