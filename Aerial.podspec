@@ -21,6 +21,7 @@ Pod::Spec.new do |s|
 
   s.dependency "ObjectMapper"
   s.dependency "XCGLogger"
+  s.dependency "KZFileWatchers"
   s.dependency "Dollar"
 
 end
