@@ -55,7 +55,7 @@ class File: NSObject, Mappable {
         children <- map["children"]
     }
     
-    static func printTree(tree: [File], indentLevel: Int = 0) {
+    static func printTree(tree: [File], indentLevel: Int = 0, debug: Bool = false) {
         let indent = Array(repeating: "  ", count: indentLevel).reduce("") { "\($0)\($1)" }
         if indentLevel > 0 {
             Log.d("\(indent)\\")
@@ -63,6 +63,9 @@ class File: NSObject, Mappable {
         for file in tree {
             if Logger.level.isInclude(level: .debug) {
                 print("\(indent) --- \(file.name)", terminator: "")
+                if debug {
+                    print("\n\(indent) --- \(file.url)", terminator: "")
+                }
             }
             if !file.isLeaf && file.children.count > 0 {
                 Log.d("")
@@ -74,10 +77,14 @@ class File: NSObject, Mappable {
 }
 
 extension Array where Element: File {
+
+    func flatten() -> [File] {
+       return flatMap { [$0] + $0.children.flatten() }
+    }
     
     subscript(fileUrl: URL) -> File? {
-        return first { file in
-            file.url == fileUrl
+        return flatten().first {
+            $0.url == fileUrl
         }
     }
 }

@@ -14,8 +14,6 @@ extension PeerSession: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         var stateStr = ""
 
-        getOrCreateDevice(withID: peerID).state = state
-
         switch state {
         case .connected:
             stateStr = "connected"
@@ -23,9 +21,19 @@ extension PeerSession: MCSessionDelegate {
             stateStr = "connecting"
         case .notConnected:
             stateStr = "notConnected"
-            browser?.invitePeer(peerID, to: session, withContext: nil, timeout: 0)
+            if advertiser != nil {
+                session.disconnect()
+                recreateSession()
+            } else {
+                browser?.invitePeer(peerID, to: session, withContext: nil, timeout: 0)
+            }
         }
-        Log.info("\(peerID.displayName) transited to \(stateStr) state\n")
+        if let device = getDeviceIfExists(forPeer: peerID) {
+            Log.info("\(peerID.displayName) transited to \(stateStr) state\n")
+            device.state = state
+        } else {
+            Log.w("\(peerID.displayName) transited to \(stateStr) state, but not in device list")
+        }
     }
 
     func session(_ session: MCSession,
@@ -47,12 +55,20 @@ extension PeerSession: MCSessionDelegate {
     {
         Log.info("Did receive \(resourceName) from \(peerID.displayName)\n")
         guard let url = URL(string: resourceName) else { return }
+        Log.v("Looking for file loading listeners...")
         if let listener = listeners[peerID.displayName] {
-            let device = getOrCreateDevice(withID: peerID)
-            if let file = device.containerTree[url] {
+            Log.v("\tDid founds one")
+            let device = getDeviceIfExists(forPeer: peerID)
+            Log.v("Looking for file in container received previously...")
+            if let file = device?.containerTree[url] {
+                Log.d("Did found one")
                 file.localUrl = localURL
                 listener.onReceive(file: file, error: error)
+            } else {
+                Log.e("File isn't contained in received container")
             }
+        } else {
+            Log.e("\tNot listeners attached")
         }
     }
     func session(_ session: MCSession,
@@ -61,5 +77,12 @@ extension PeerSession: MCSessionDelegate {
                  with progress: Progress)
     {
         Log.info("Start Receiving \(resourceName) from \(peerID.displayName)\n")
+    }
+
+    func session(_ session: MCSession,
+                 didReceiveCertificate certificate: [Any]?,
+                 fromPeer peerID: MCPeerID, 
+                 certificateHandler: @escaping (Bool) -> Void) {
+        certificateHandler(true)
     }
 }

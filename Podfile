@@ -5,6 +5,7 @@ abstract_target 'Aerial' do
 	pod 'ObjectMapper'
 	pod 'XCGLogger', '~> 4.0.0'	
 	pod 'Dollar'
+    pod 'KZFileWatchers'
 
 	target 'AerialiOS' do 
 		platform :ios, '9.0'

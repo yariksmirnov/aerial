@@ -9,18 +9,57 @@
 import UIKit
 import MultipeerConnectivity
 import XCGLogger
+import KZFileWatchers
 
 class ViewController: UIViewController {
     
     var timer: Timer?
     var aerial: Aerial?
+    var watcher: FileWatcher.Local?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupFileWatcher()
         
         timer = Timer(timeInterval: 2, target: self, selector: #selector(startLogging), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: .defaultRunLoopMode)
 
+        createFile()
+    }
+
+    private func setupFileWatcher() {
+        let fm = FileManager.default
+        let docUrl = fm.urls(for: .documentDirectory, in: .userDomainMask).first
+        let containerUrl = docUrl!.deletingLastPathComponent()
+        watcher = FileWatcher.Local(path: docUrl!.path)
+        try! watcher?.start { result in
+            switch result {
+            case .noChanges:
+                break
+            case .updated(_):
+                break
+            }
+        }
+    }
+
+    private func createFile() {
+        let fm = FileManager.default
+        let docUrl = fm.urls(for: .documentDirectory, in: .userDomainMask).first
+        try! "Hello World!".write(to: docUrl!.appendingPathComponent("test_file.txt"), atomically: true, encoding: .utf8)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.deleteFile()
+        }
+        Container.debugPrint()
+    }
+
+    private func deleteFile() {
+        let fm = FileManager.default
+        let docUrl = fm.urls(for: .documentDirectory, in: .userDomainMask).first
+        try! fm.removeItem(at: docUrl!.appendingPathComponent("test_file.txt"))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.createFile()
+        }
+        Container.debugPrint()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -38,13 +77,17 @@ class ViewController: UIViewController {
             ]
         }
     }
+
+    static var incrementer = 0
     
     func startLogging() {
-        TestLog.error("Error!!!: Something serious has failed with error")
-        TestLog.warning("I must warn you. If you have not written unit test for this - it gonna be bullshit.")
-        TestLog.info("Log messages have to contain usefull and clear information.")
-        TestLog.debug("All of my variables are nil.")
-        TestLog.verbose("Call this method, then that..")
+        TestLog.error("\(ViewController.incrementer)")
+        TestLog.warning("\(ViewController.incrementer)")
+        TestLog.info("\(ViewController.incrementer)")
+        TestLog.debug("\(ViewController.incrementer)")
+        TestLog.verbose("\(ViewController.incrementer)")
+
+        ViewController.incrementer = ViewController.incrementer + 1
 
         aerial?.updateDebugInfo {
             ["APNS Token" : UUID().uuidString,

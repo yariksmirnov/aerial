@@ -6,6 +6,7 @@ PODS:
   - CocoaLumberjack/Extensions (3.1.0):
     - CocoaLumberjack/Default
   - Dollar (6.2.0)
+  - KZFileWatchers (1.0.1)
   - MASPreferences (1.1.4)
   - ObjectMapper (2.2.5)
   - PureLayout (3.0.2)
@@ -16,6 +17,7 @@ PODS:
 DEPENDENCIES:
   - CocoaLumberjack
   - Dollar
+  - KZFileWatchers
   - MASPreferences
   - ObjectMapper
   - PureLayout
@@ -24,11 +26,12 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   CocoaLumberjack: 8311463ddf9ee86a06ef92a071dd656c89244500
   Dollar: da81aacae30cf7dd059bfdfec709e97f2f0ae2f8
+  KZFileWatchers: 0215a3745b1822c5efb56562b5870153dee582d0
   MASPreferences: 7bdcfe891d7840453cf48f95fa866c3e152ace7a
   ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   XCGLogger: 38063ea89b4c8b23232d18efd2e12eb0005f3ea4
 
-PODFILE CHECKSUM: fe80e3405f11bf5d91abf9252ab7d487d1c67063
+PODFILE CHECKSUM: 123e787a3debdf63ed7f0dfb130509dba7b47409
 
 COCOAPODS: 1.2.0

@@ -91,12 +91,14 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack/CocoaLumberjack.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Dollar-iOS/Dollar.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/KZFileWatchers-iOS/KZFileWatchers.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ObjectMapper-iOS/ObjectMapper.framework"
   install_framework "$BUILT_PRODUCTS_DIR/XCGLogger-iOS/XCGLogger.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack/CocoaLumberjack.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Dollar-iOS/Dollar.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/KZFileWatchers-iOS/KZFileWatchers.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ObjectMapper-iOS/ObjectMapper.framework"
   install_framework "$BUILT_PRODUCTS_DIR/XCGLogger-iOS/XCGLogger.framework"
 fi

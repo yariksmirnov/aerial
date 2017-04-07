@@ -90,6 +90,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Dollar-OSX/Dollar.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/KZFileWatchers-OSX/KZFileWatchers.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ObjectMapper-OSX/ObjectMapper.framework"
   install_framework "$BUILT_PRODUCTS_DIR/XCGLogger-OSX/XCGLogger.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MASPreferences/MASPreferences.framework"
@@ -97,6 +98,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Dollar-OSX/Dollar.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/KZFileWatchers-OSX/KZFileWatchers.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ObjectMapper-OSX/ObjectMapper.framework"
   install_framework "$BUILT_PRODUCTS_DIR/XCGLogger-OSX/XCGLogger.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MASPreferences/MASPreferences.framework"

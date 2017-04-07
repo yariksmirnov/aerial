@@ -50,7 +50,6 @@ final class PeerSession: NSObject {
     fileprivate(set) var isBrowsing = false
     
     private var devices = [String: Device]()
-    fileprivate(set) var loadingCompletions = [File: FileRequestCompletion]()
 
     private(set) var listeners = [String: PeerSessionListener]()
     
@@ -72,17 +71,17 @@ final class PeerSession: NSObject {
     }
     
     func advertise() {
-        browser = MCNearbyServiceBrowser(peer: peer, serviceType: AerialServiceType)
-        browser?.delegate = self
-        isBrowsing = true
-        browser?.startBrowsingForPeers()
-    }
-    
-    func browse() {
         advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: nil, serviceType: AerialServiceType)
         advertiser?.delegate = self
         isAdvertising = true
         advertiser?.startAdvertisingPeer()
+    }
+    
+    func browse() {
+        browser = MCNearbyServiceBrowser(peer: peer, serviceType: AerialServiceType)
+        browser?.delegate = self
+        isBrowsing = true
+        browser?.startBrowsingForPeers()
     }
     
     func getOrCreateDevice(withID peerID: MCPeerID) -> Device {
@@ -97,6 +96,22 @@ final class PeerSession: NSObject {
             delegate?.session(self, didCreate: device)
             return device
         }
+    }
+
+    func recreateSession() {
+        self.session = createMultipeerSession()
+        self.session.delegate = self
+    }
+
+    private func createMultipeerSession() -> MCSession {
+        return MCSession(peer: peer, securityIdentity: nil, encryptionPreference: .none)
+    }
+
+    func getDeviceIfExists(forPeer peerID: MCPeerID) -> Device? {
+        if let device = devices[peerID.displayName], device.peerID == peerID {
+            return device
+        }
+        return nil
     }
 
     func addListener(_ listener: PeerSessionListener, forDevice device: Device) {

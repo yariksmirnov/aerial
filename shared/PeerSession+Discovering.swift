@@ -12,13 +12,13 @@ import MultipeerConnectivity
 extension PeerSession : MCNearbyServiceBrowserDelegate {
 
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
-        Log.info("Found peer: \(peerID.displayName)\n")
+        Log.info("Halfpipe Found peer: \(peerID.displayName)\n")
         _ = getOrCreateDevice(withID: peerID)
         browser.invitePeer(peerID, to: self.session, withContext: nil, timeout: 10)
     }
 
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        Log.info("Lost peer: \(peerID.displayName)\n")
+        Log.info("Halfpipe Lost peer: \(peerID.displayName)\n")
     }
 }
 
