@@ -9,6 +9,7 @@
 import Foundation
 
 public enum Level: Int {
+    case none
     case error
     case warning
     case info
@@ -34,7 +35,7 @@ internal let Log = Logger()
 
 public final class Logger: LevelLogging {
 
-    public static var level: Level = .debug
+    public static var level: Level = .none
 
     func error(_ msg: String) {
         log(msg, level: .error)
